@@ -10,6 +10,7 @@ project(assignment2_exprob)
 find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
+  move_base_msgs
   geometry_msgs
   roscpp
   rospy

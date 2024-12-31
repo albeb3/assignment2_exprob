@@ -3,7 +3,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
 #include <assignment2_exprob/PlanningAction.h>
-
+#include <move_base_msgs/MoveBaseAction.h>
 
 namespace KCL_rosplan {
 
@@ -15,9 +15,13 @@ namespace KCL_rosplan {
 			// here the implementation of the action 
 		std::cout << "Going from " << msg->parameters[1].value << " to " << msg->parameters[2].value << std::endl;
 		
-		actionlib::SimpleActionClient<assignment2_exprob::PlanningAction> ac("reaching_goal", true);
-		assignment2_exprob::PlanningGoal goal;
+		actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
+		
 		ac.waitForServer();
+		move_base_msgs::MoveBaseGoal goal;
+    // Popola il messaggio header
+    	goal.target_pose.header.stamp = ros::Time::now();
+    	goal.target_pose.header.frame_id = "map";
 		if(msg->parameters[2].value == "wp1"){
 		goal.target_pose.pose.position.x = 6.0;
 		goal.target_pose.pose.position.y = 2.0;

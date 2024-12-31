@@ -16,7 +16,7 @@ namespace KCL_rosplan {
 			// here the implementation of the action 
 		std::cout << "Going from " << msg->parameters[1].value << " to " << msg->parameters[2].value << std::endl;
 		
-		actionlib::SimpleActionClient<assignment2_exprob::PlanningAction> ac("reaching_goal", true);
+		actionlib::SimpleActionClient<assignment2_exprob::PlanningAction> ac("move_base_simple/goal", true);
 		assignment2_exprob::PlanningGoal goal;
 		ac.waitForServer();
 		
