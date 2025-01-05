@@ -5,10 +5,12 @@
 #include <assignment2_exprob/MarkerDetectionAction.h>
 #include <std_msgs/Int32.h>
 #include <assignment2_exprob/Marker_id_pos.h>
+#include <assignment2_exprob/MarkerArray.h>
 #include <geometry_msgs/Twist.h>
 #include <std_msgs/Float64.h>
 //#include <assignment2_exprob/laser_direction.h>
 #include <assignment2_exprob/SetVelocityControl.h>
+#include <vector>
 
 class MarkerDetectionActionServer {
 public:
@@ -16,6 +18,7 @@ public:
         as_.start();
         marker_pub_ = nh_.advertise<std_msgs::Int32>("/rosbot/search_id", 10);
         cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+        detected_markers_pub = nh_.advertise<assignment2_exprob::MarkerArray>("/detected_markers", 10);
         found_sub_ = nh_.subscribe("/robot4_xacro/marker_id_detected", 1, &MarkerDetectionActionServer::foundCallback, this);
        // laser_dir_sub_ = nh_.subscribe("/laser_direction", 1, &MarkerDetectionActionServer::laserCallback, this);
         client = nh_.serviceClient<assignment2_exprob::SetVelocityControl>("/set_velocity_control");
@@ -51,7 +54,33 @@ public:
         if (msg.marker_id != -1) {
             marker_found_ = true;
             marker_id_detected.data = msg.marker_id;
-            // Additional actions on marker found can go here
+            bool already_present = false;
+            for (const auto& marker : detected_markers_list) {
+                if (marker.marker_id == msg.marker_id) {
+                    already_present = true;
+                    break;
+                }
+            }
+
+            // Aggiungi solo se il marker_id non è già presente
+            if (!already_present) {
+                detected_markers_list.push_back(msg);
+                ROS_INFO("Inserito marker_id: %d nella lista.", msg.marker_id);
+            } else {
+                ROS_WARN("Marker_id: %d già presente nella lista. Ignorato.", msg.marker_id);
+            }
+            // Controlla se la lista contiene 4 elementi
+            if (detected_markers_list.size() == 4) {
+                ROS_INFO("Raggiunti 4 marker! Pronto per pubblicare.");
+                assignment2_exprob::MarkerArray marker_array_msg;   
+                marker_array_msg.markers = detected_markers_list;
+
+                // Ad esempio, pubblica su un topic
+                 detected_markers_pub.publish(marker_array_msg); // Se hai un publisher configurato
+
+                // Svuota la lista se necessario
+                // detected_markers_list.clear();
+            }
         }
     }
 
@@ -60,6 +89,7 @@ private:
     actionlib::SimpleActionServer<assignment2_exprob::MarkerDetectionAction> as_;
     ros::Publisher marker_pub_;
     ros::Publisher cmd_vel_pub_;
+    ros::Publisher detected_markers_pub;
     ros::Subscriber found_sub_;
     bool marker_found_ = false;
     std_msgs::Int32 id;
@@ -68,7 +98,8 @@ private:
     std::string global_direction;
     float global_distance;
     ros::ServiceClient client;  // Client for SetVelocityControl service
-    
+    std::vector<assignment2_exprob::Marker_id_pos> detected_markers_list;
+
 };
 
 int main(int argc, char** argv) {

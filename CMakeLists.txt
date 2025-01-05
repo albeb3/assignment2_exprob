@@ -65,6 +65,7 @@ find_package (OpenCV REQUIRED)
  add_message_files(
    FILES
     Marker_id_pos.msg
+    MarkerArray.msg
     laser_direction.msg
  )
 

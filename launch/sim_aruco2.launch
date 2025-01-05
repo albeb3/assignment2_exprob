@@ -46,6 +46,12 @@
   </group>
 	
 <!-- Below are the modifications starting -->	
+
+<include file="$(find assignment2_exprob)/launch/assignment_0.launch" />
+<include file="$(find assignment2_exprob)/launch/assignment_1.launch" />
+<include file="$(find assignment2_exprob)/launch/assignment_2.launch" />
+<include file="$(find assignment2_exprob)/launch/assignment_3.launch" />
+
 	
 </launch>
 

@@ -74,6 +74,7 @@ namespace KCL_rosplan {
 		goal1.target_pose.pose.position.x = 1.0;
 		goal1.target_pose.pose.position.y = 2.0;
 		
+		
 		}
 		client.sendGoal(goal1);
 		ac.sendGoal(goal);
@@ -99,4 +100,3 @@ namespace KCL_rosplan {
 		my_aci.runActionInterface();
 		return 0;
 	}
-

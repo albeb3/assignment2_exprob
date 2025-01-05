@@ -1,20 +1,15 @@
 <?xml version="1.0"?>
 <launch>
+    
     <node pkg="assignment2_exprob" type="marker_publisher_assignment" name="marker_publisher_assignment" output="log">
             <!-- Remapping del topic /image -->
             <remap from="/image" to="/robot4_xacro/camera1/image_raw" />
-        </node>
-  
-     
-     
-     <!--<node pkg="assignment2_exprob" type="marker_detection_server" name="marker_detection_server" output="log" />-->
-	 <param name="des_pos_x" value= "1.0" />
-     <param name="des_pos_y" value= "2.0" />
-     
+    </node>
+
+    
     <include file="$(find assignment2_exprob)/launch/plan.launch" />
     
-	 <node pkg="assignment2_exprob" type="plan_services.py" name="plan_services" />
-     <!--<node pkg="assignment2_exprob" type="go_to_point_service.py" name="go_to_point" />-->
+	 
      <node pkg="assignment2_exprob" type="check_arrive.py" name="check_arrive_action_service" output="log" />
 
 

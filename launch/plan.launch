@@ -70,5 +70,6 @@ respawn="false" output="screen">
 <param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
 </node>
 
+<node pkg="assignment2_exprob" type="plan_services.py" name="plan_services" />
 
 </launch>
