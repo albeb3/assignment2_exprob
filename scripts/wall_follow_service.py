@@ -21,9 +21,10 @@ regions_ = {
 }
 state_ = 0
 state_dict_ = {
-    0: 'find the wall',
-    1: 'turn left',
-    2: 'follow the wall',
+    0: 'go forward',
+    1: 'retro',
+    2: 'turn right',
+    3: 'turn left',
 }
 
 
@@ -63,57 +64,46 @@ def take_action():
     linear_x = 0
     angular_z = 0
     state_description = ''
-
-    d0 = 1
-    d = 1.5
-
-    if regions['front'] > d0 and regions['fleft'] > d and regions['fright'] > d:
-        state_description = 'case 1 - nothing'
-        change_state(0)
-    elif regions['front'] < d0 and regions['fleft'] > d and regions['fright'] > d:
-        state_description = 'case 2 - front'
-        change_state(1)
-    elif regions['front'] > d0 and regions['fleft'] > d and regions['fright'] < d:
-        state_description = 'case 3 - fright'
+    min_key=min(regions, key=regions.get)
+    min_value=regions[min_key]
+    d0 = 0.4
+    d = 3
+    if min_key == 'front':
+        if min_value < d0:
+            state_description = 'case 1 - retro'
+            change_state(1)
+        elif min_value < d:
+            state_description = 'case 2 - go_forward'
+            change_state(0)
+    elif min_key == 'fright' or min_key == 'right':
+        state_description = 'case 4 - turn_right'
         change_state(2)
-    elif regions['front'] > d0 and regions['fleft'] < d and regions['fright'] > d:
-        state_description = 'case 4 - fleft'
-        change_state(0)
-    elif regions['front'] < d0 and regions['fleft'] > d and regions['fright'] < d:
-        state_description = 'case 5 - front and fright'
-        change_state(1)
-    elif regions['front'] < d0 and regions['fleft'] < d and regions['fright'] > d:
-        state_description = 'case 6 - front and fleft'
-        change_state(1)
-    elif regions['front'] < d0 and regions['fleft'] < d and regions['fright'] < d:
-        state_description = 'case 7 - front and fleft and fright'
-        change_state(1)
-    elif regions['front'] > d0 and regions['fleft'] < d and regions['fright'] < d:
-        state_description = 'case 8 - fleft and fright'
-        change_state(0)
+    
+    elif min_key == 'fleft' or min_key == 'left':
+        state_description = 'case 3 - turn_left'
+        change_state(3)
+    
     else:
         state_description = 'unknown case'
         rospy.loginfo(regions)
-
-
-def find_wall():
-    msg = Twist()
-    msg.linear.x = 0.2
-    msg.angular.z = -0.3
-    return msg
-
-
-def turn_left():
-    msg = Twist()
-    msg.angular.z = 0.3
-    return msg
-
-
-def follow_the_wall():
+def go_forward():
     global regions_
 
     msg = Twist()
     msg.linear.x = 0.5
+    return msg
+def retro():
+    msg = Twist()
+    msg.linear.x = -0.5
+    return msg
+def turn_right():
+    msg = Twist()
+    msg.angular.z = -0.3
+    return msg
+
+def turn_left():
+    msg = Twist()
+    msg.angular.z = 0.3
     return msg
 
 
@@ -136,11 +126,13 @@ def main():
         else:
             msg = Twist()
             if state_ == 0:
-                msg = find_wall()
+                msg = go_forward()
             elif state_ == 1:
-                msg = turn_left()
+                msg = retro()
             elif state_ == 2:
-                msg = follow_the_wall()
+                msg = turn_right()
+            elif state_ == 3:
+                msg = turn_left()
             else:
                 rospy.logerr('Unknown state!')
 

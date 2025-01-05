@@ -1,12 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-	 <include file="$(find assignment2_exprob)/launch/assignment_0.launch" />
-	 <include file="$(find rosplan_planning_system)/launch/prova.launch" />
-	 <param name="des_pos_x" value= "1.0" />
-     <param name="des_pos_y" value= "2.0" />
-	 <node pkg="assignment2_exprob" type="wall_follow_service.py" name="wall_follower" />
-     <node pkg="assignment2_exprob" type="go_to_point_service.py" name="go_to_point" />
-     <node pkg="assignment2_exprob" type="bug_as.py" name="bug_action_service" output="screen" />
-
+     <include file="$(find assignment2_exprob)/launch/move_base.launch" />
+	 <include file="$(find assignment2_exprob)/launch/gmapping.launch" />
+    
+     
 
 </launch>

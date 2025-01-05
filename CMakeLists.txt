@@ -13,17 +13,24 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   roscpp
   rospy
+  rosplan_dispatch_msgs
+  rosplan_knowledge_msgs
+  rosplan_dependencies
   std_msgs
   sensor_msgs
   std_srvs
   tf
   message_generation
   rosplan_planning_system
+  cv_bridge
+  image_transport
+  aruco
+  aruco_msgs
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package (OpenCV REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -57,18 +64,17 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
  add_message_files(
    FILES
-   Posvel.msg
-   PosGoal.msg
-   Dimarray.msg
-   
+    Marker_id_pos.msg
+    laser_direction.msg
  )
 
 ## Generate services in the 'srv' folder
  add_service_files(
    FILES
 #   Service1.srv
-    Last_target.srv
-    Dist_vel.srv
+    #Last_target.srv
+    #Dist_vel.srv
+    SetVelocityControl.srv
  )
  
 ## Generate actions in the 'action' folder
@@ -76,7 +82,8 @@ find_package(catkin REQUIRED COMPONENTS
     FILES
 #   Action1.action
 #   Action2.action
-	Planning.action
+	  MarkerDetection.action
+    Planning.action
  )
 
 ## Generate added messages and services with any dependencies listed here
@@ -85,6 +92,7 @@ find_package(catkin REQUIRED COMPONENTS
    actionlib_msgs
    geometry_msgs
    std_msgs
+   assignment2_exprob
  )
 
 ################################################
@@ -121,6 +129,7 @@ catkin_package(
 #  LIBRARIES assignment2_exprob
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
+	DEPENDS OpenCV
 )
 
 ###########
@@ -148,8 +157,12 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/assignment2_exprob_node.cpp)
- add_executable(planning_action src/planning_action.cpp)
- add_executable(path_following src/path_following.cpp)
+ add_executable(go_to_wp src/go_to_wp.cpp)
+ add_executable(go_to_marker src/go_to_marker.cpp)
+ add_executable(marker_publisher_assignment src/marker_publish.cpp)
+ add_executable(marker_detection_server src/marker_detection_server.cpp)
+ add_executable(marker_detection_client src/marker_detection_client.cpp)
+ add_executable(set_velocity_control_node src/set_velocity_control.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -159,19 +172,35 @@ include_directories(
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
- add_dependencies(planning_action ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
- add_dependencies(path_following ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
+ add_dependencies(go_to_wp ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+  add_dependencies(go_to_marker ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+ add_dependencies(marker_publisher_assignment ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+ add_dependencies(marker_detection_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+  add_dependencies(marker_detection_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+  add_dependencies(set_velocity_control_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
- target_link_libraries(planning_action
+ target_link_libraries(go_to_wp
    ${catkin_LIBRARIES}
  )
-  target_link_libraries(path_following
+  target_link_libraries(go_to_marker
+   ${catkin_LIBRARIES}
+)
+
+  target_link_libraries(marker_publisher_assignment
    ${catkin_LIBRARIES}
  )
+  target_link_libraries(marker_detection_server
+   ${catkin_LIBRARIES}
+ )
+    target_link_libraries(marker_detection_client
+    ${catkin_LIBRARIES}
+  )
+  target_link_libraries(set_velocity_control_node
+    ${catkin_LIBRARIES}
+  )
 #############
 ## Install ##
 #############

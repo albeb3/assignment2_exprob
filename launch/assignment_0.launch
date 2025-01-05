@@ -15,7 +15,7 @@
 	  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 		args="-urdf -model robot_camera_ros1 -param robot_description -x 1.0 -y 2.0 -z 0.05"/> 
 		
-	  <rosparam file="$(find robot_urdf)/config/camera_config.yaml" command="load" ns="/robot4_xacro" />
+	  <rosparam file="$(find assignment2_exprob)/config/camera_config.yaml" command="load" ns="/robot4_xacro" />
 	  
 	  <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen" args="--namespace=/robot4_xacro
 		    joint_state_controller

@@ -10,6 +10,9 @@
   <gazebo reference="link_right_wheel">
     <material>Gazebo/Blue</material>
   </gazebo>
+  <gazebo reference="support_camera_link_0">
+    <material>Gazebo/Red</material>
+  </gazebo>
   <gazebo reference="support_camera_link">
     <material>Gazebo/Red</material>
   </gazebo>
@@ -45,7 +48,7 @@
   
   
   <!-- The ft_sensor plugin -->  
-    <gazebo reference="camera_joint">
+    <gazebo reference="support_camera_joint">
     	<provideFeedback>true</provideFeedback>
 	</gazebo>
 
@@ -53,7 +56,7 @@
     	<plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
 		    <updateRate>100.0</updateRate>
 		    <topicName>ft_sensor_topic</topicName>
-		    <jointName>camera_joint</jointName>
+		    <jointName>support_camera_joint</jointName>
     	</plugin>
 	</gazebo>
 

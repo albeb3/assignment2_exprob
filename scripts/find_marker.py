@@ -7,7 +7,7 @@ from nav_msgs.msg import Odometry
 import math
 import actionlib
 import actionlib.msg
-import assignment_2_2023.msg
+import assignment2_exprob.msg
 from tf import transformations
 from std_srvs.srv import *
 import time
@@ -23,12 +23,12 @@ desired_position_.z = 0
 regions_ = None
 state_desc_ = ['Go to point', 'wall following', 'done']
 state_ = 0
-# 0 - go to point
-# 1 - wall following
+# 0 - stop service
+# 1 - find marker
 # 2 - done
 # 3 - canceled
 # callbacks
-
+def clbk_marker_detected(msg):
 
 def clbk_odom(msg):
     global position_, yaw_, pose_
@@ -65,21 +65,12 @@ def change_state(state):
     log = "state changed: %s" % state_desc_[state]
     rospy.loginfo(log)
     if state_ == 0:
-        resp = srv_client_go_to_point_(True)
         resp = srv_client_wall_follower_(False)
     if state_ == 1:
-        resp = srv_client_go_to_point_(False)
         resp = srv_client_wall_follower_(True)
-    if state_ == 2:
-        resp = srv_client_go_to_point_(False)
-        resp = srv_client_wall_follower_(False)
 
 
-def normalize_angle(angle):
-    if(math.fabs(angle) > math.pi):
-        angle = angle - (2 * math.pi * angle) / (math.fabs(angle))
-    return angle
-    
+
 def done():
     twist_msg = Twist()
     twist_msg.linear.x = 0
@@ -100,47 +91,22 @@ def planning(goal):
     rospy.set_param('des_pos_y', desired_position_.y)
     
     
-    feedback = assignment_2_2023.msg.PlanningFeedback()
-    result = assignment_2_2023.msg.PlanningResult()
+    feedback = assignment2_exprob.msg.FindMarkerFeedback()
+    result =  assignment2_exprob.msg.FindMarkerResult()
     
     while not rospy.is_shutdown():
         err_pos = math.sqrt(pow(desired_position_.y - position_.y, 2) +
                         pow(desired_position_.x - position_.x, 2))
-        if act_s.is_preempt_requested():
-            rospy.loginfo("Goal was preeempted")
-            feedback.stat = "Target cancelled!"
-            feedback.actual_pose = pose_
+      
+        if state_ == 0:
+            feedback.stat = "State 0: end look for marker"
             act_s.publish_feedback(feedback)
-            act_s.set_preempted()
-            success = False
-            change_state(2)
-            done()
-            break
-        elif err_pos < 0.5:
-            change_state(2)
-            feedback.stat = "Target reached!"
-            feedback.actual_pose = pose_
-            act_s.publish_feedback(feedback)
-            done()
-            break       
-        elif regions_ == None:
-            continue
-        
-        elif state_ == 0:
-            feedback.stat = "State 0: go to point"
-            feedback.actual_pose = pose_
-            act_s.publish_feedback(feedback)
-            if regions_['front'] < 0.4:
-                change_state(1)
         elif state_ == 1:
-            feedback.stat = "State 1: avoid obstacle"
-            feedback.actual_pose = pose_
+            feedback.stat = "State 1: search for marker"
             act_s.publish_feedback(feedback)
-            desired_yaw = math.atan2(
-                desired_position_.y - position_.y, desired_position_.x - position_.x)
-            err_yaw = normalize_angle(desired_yaw - yaw_)
-            if regions_['front'] > 1 and math.fabs(err_yaw) < 0.05:
+            if min(regions_,key=regions_.get)=='front': # and marker detected
                 change_state(0)
+        
         elif state_== 2:
             break
             
@@ -163,18 +129,19 @@ def main():
 
     rospy.init_node('bug0')
     
-    desired_position_.x = 0.0
-    desired_position_.y = 1.0
-    rospy.set_param('des_pos_x', desired_position_.x)
-    rospy.set_param('des_pos_y', desired_position_.y)
     sub_laser = rospy.Subscriber('/scan', LaserScan, clbk_laser)
     sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
+    sub_marker_detected = rospy.Subscriber(
+        '/robot4_xacro/marker_id_detected', assignment2_exprob::Marker_id_pos, clbk_marker_detected)
+
+    
+    
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-    srv_client_go_to_point_ = rospy.ServiceProxy(
-        '/go_to_point_switch', SetBool)
+
+    
     srv_client_wall_follower_ = rospy.ServiceProxy(
         '/wall_follower_switch', SetBool)
-    act_s = actionlib.SimpleActionServer('/reaching_goal', assignment_2_2023.msg.PlanningAction, planning, auto_start=False)
+    act_s = actionlib.SimpleActionServer('/reaching_goal', assignment2_exprob.msg.FindMarkerAction, findmarker, auto_start=False)
     act_s.start()
    
     # initialize going to the point

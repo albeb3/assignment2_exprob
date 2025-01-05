@@ -4,7 +4,7 @@ joint_state_controller:
 
 camera_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: camera_joint
+  joint: support_camera_joint
   pid: {p: 2.0, i: 0.0, d: 0.0}
   
   
