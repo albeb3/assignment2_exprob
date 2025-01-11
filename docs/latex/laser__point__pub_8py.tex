@@ -1,0 +1,59 @@
+\hypertarget{laser__point__pub_8py}{}\doxysection{/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/scripts/laser\+\_\+point\+\_\+pub.py File Reference}
+\label{laser__point__pub_8py}\index{/home/albeb/ros\_ws/src/assignment2\_exprob/scripts/laser\_point\_pub.py@{/home/albeb/ros\_ws/src/assignment2\_exprob/scripts/laser\_point\_pub.py}}
+
+
+laser\+\_\+point\+\_\+pub  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{laser__point__pub_8py_a039d2bb78895463d4c5bf0731783cd73}\label{laser__point__pub_8py_a039d2bb78895463d4c5bf0731783cd73}} 
+def {\bfseries laser\+\_\+point\+\_\+pub.\+clbk\+\_\+laser} (msg)
+\item 
+\mbox{\Hypertarget{laser__point__pub_8py_a2c20780a8a9eeaa3e531c4dd560b199f}\label{laser__point__pub_8py_a2c20780a8a9eeaa3e531c4dd560b199f}} 
+def {\bfseries laser\+\_\+point\+\_\+pub.\+main} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{laser__point__pub_8py_a1f6dda58e5f025f525cf35026fc1435b}\label{laser__point__pub_8py_a1f6dda58e5f025f525cf35026fc1435b}} 
+{\bfseries laser\+\_\+point\+\_\+pub.\+pub\+\_\+} = None
+\item 
+dictionary {\bfseries laser\+\_\+point\+\_\+pub.\+regions\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+laser\+\_\+point\+\_\+pub 
+
+\begin{DoxyAuthor}{Author}
+Alberto Bono 3962994 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+04/01/2025
+\end{DoxyDate}
+Subscribes to\+: /scan
+
+Subscribes to\+: /laser\+\_\+direction
+
+Description\+: This node allows the robot to find the closest point to the robot in the laser scan data. It subscribes to the /scan topic to get the laser scan data. When the robot finds the closest point, it publishes a message with the direction and the distance of the closest point. 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{laser__point__pub_8py_adb5c4c04c55a578953ab9c80bd160fd7}\label{laser__point__pub_8py_adb5c4c04c55a578953ab9c80bd160fd7}} 
+\index{laser\_point\_pub.py@{laser\_point\_pub.py}!regions\_@{regions\_}}
+\index{regions\_@{regions\_}!laser\_point\_pub.py@{laser\_point\_pub.py}}
+\doxysubsubsection{\texorpdfstring{regions\_}{regions\_}}
+{\footnotesize\ttfamily dictionary laser\+\_\+point\+\_\+pub.\+regions\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  \{}
+\DoxyCodeLine{2     \textcolor{stringliteral}{'right'}: 0,}
+\DoxyCodeLine{3     \textcolor{stringliteral}{'fright'}: 0,}
+\DoxyCodeLine{4     \textcolor{stringliteral}{'front'}: 0,}
+\DoxyCodeLine{5     \textcolor{stringliteral}{'fleft'}: 0,}
+\DoxyCodeLine{6     \textcolor{stringliteral}{'left'}: 0,}
+\DoxyCodeLine{7 \}}
+
+\end{DoxyCode}

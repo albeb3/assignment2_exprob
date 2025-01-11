@@ -1,48 +1,60 @@
 #! /usr/bin/env python
 
+## @package assignment2_exprob
+#
+# \file check_arrive.py
+# \brief check_arrive_node
+# \author Alberto Bono 3962994
+# \date 04/01/2025
+#
+# Subscribes to:
+#    /odom
+#
+# SimpleActionClient:
+#	/reaching_goal
+#
+# Description:
+# This node allows the robot to check if it has reached the target position. 
+# I have to made this node because the /move_base dosn't provide a feedback message when the robot reaches the target position.
+# It subscribes to the /odom topic to get the current position of the robot. 
+# When the robot reaches the target position, it sends a feedback message to the action client /reaching_goal and sets the result as succeeded.
+
+
 import rospy
-from geometry_msgs.msg import Point, Pose, Twist
-from sensor_msgs.msg import LaserScan
+from geometry_msgs.msg import Point, Pose
 from nav_msgs.msg import Odometry
 import math
 import actionlib
 import actionlib.msg
 import assignment_2_2023.msg
-from tf import transformations
-from std_srvs.srv import *
 import time
 
-srv_client_go_to_point_ = None
-srv_client_wall_follower_ = None
-yaw_ = 0
-yaw_error_allowed_ = 5 * (math.pi / 180)  # 5 degrees
+# globals variables for managing the position of the robot
 position_ = Point()
 pose_ = Pose()
 desired_position_ = Point()
 desired_position_.z = 0
-regions_ = None
 
-
-
+# callback for the odom topic: fill the position_ variable with the current position of the robot
 def clbk_odom(msg):
-    global position_, yaw_, pose_
-
+    global position_,  pose_
     # position
     position_ = msg.pose.pose.position
     pose_ = msg.pose.pose
 
     
-    
-def planning(goal):
-    global regions_, position_, desired_position_, state_, yaw_, yaw_error_allowed_
-    global srv_client_go_to_point_, srv_client_wall_follower_, act_s, pose_
+ # callback for the action client /reaching_goal: check if the robot has reached the target position
+ # if the robot has reached the target position, it sends a feedback message to the action client /reaching_goal 
+ # and sets the result as succeeded
+def check_goal_cllback(goal):
+    global  position_, desired_position_, act_s, pose_
+ 
     rate = rospy.Rate(20)
     success = True
     
     desired_position_.x = goal.target_pose.pose.position.x
     desired_position_.y = goal.target_pose.pose.position.y
-    rospy.set_param('des_pos_x', desired_position_.x)
-    rospy.set_param('des_pos_y', desired_position_.y)
+    
     
     feedback = assignment_2_2023.msg.PlanningFeedback()
     result = assignment_2_2023.msg.PlanningResult()
@@ -64,20 +76,12 @@ def planning(goal):
     
 def main():
     time.sleep(2)
-    global regions_, position_, desired_position_, state_, yaw_, yaw_error_allowed_
-    global srv_client_go_to_point_, srv_client_wall_follower_, act_s, pub
-
-    rospy.init_node('bug0')
-    desired_position_.x = 0.0
-    desired_position_.y = 1.0
-    rospy.set_param('des_pos_x', desired_position_.x)
-    rospy.set_param('des_pos_y', desired_position_.y)
-    sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
-    act_s = actionlib.SimpleActionServer('/reaching_goal', assignment_2_2023.msg.PlanningAction, planning, auto_start=False)
-    act_s.start()
-   
-    # initialize going to the point
+    global  act_s
+    rospy.init_node('check_arrive_node')
     
+    sub_odom = rospy.Subscriber('/odom', Odometry, clbk_odom)
+    act_s = actionlib.SimpleActionServer('/reaching_goal', assignment_2_2023.msg.PlanningAction, check_goal_cllback, auto_start=False)
+    act_s.start()
 
     rate = rospy.Rate(20)
     while not rospy.is_shutdown():

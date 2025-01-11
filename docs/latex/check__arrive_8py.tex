@@ -1,0 +1,50 @@
+\hypertarget{check__arrive_8py}{}\doxysection{/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/scripts/check\+\_\+arrive.py File Reference}
+\label{check__arrive_8py}\index{/home/albeb/ros\_ws/src/assignment2\_exprob/scripts/check\_arrive.py@{/home/albeb/ros\_ws/src/assignment2\_exprob/scripts/check\_arrive.py}}
+
+
+check\+\_\+arrive\+\_\+node  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{check__arrive_8py_ae198cc561866e150702619d7934c6e13}\label{check__arrive_8py_ae198cc561866e150702619d7934c6e13}} 
+def {\bfseries check\+\_\+arrive.\+clbk\+\_\+odom} (msg)
+\item 
+\mbox{\Hypertarget{check__arrive_8py_aaeaf8a41b3178a3c68dec807ed23ac21}\label{check__arrive_8py_aaeaf8a41b3178a3c68dec807ed23ac21}} 
+def {\bfseries check\+\_\+arrive.\+check\+\_\+goal\+\_\+cllback} (goal)
+\item 
+\mbox{\Hypertarget{check__arrive_8py_a648f0d3f5f8ec8081de0e6d44e99f5bc}\label{check__arrive_8py_a648f0d3f5f8ec8081de0e6d44e99f5bc}} 
+def {\bfseries check\+\_\+arrive.\+main} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{check__arrive_8py_aa3e078dc669317b59c5655bbba5d1c1b}\label{check__arrive_8py_aa3e078dc669317b59c5655bbba5d1c1b}} 
+{\bfseries check\+\_\+arrive.\+position\+\_\+} = Point()
+\item 
+\mbox{\Hypertarget{check__arrive_8py_a6b59a9cbe30ec72674eb55c3f77fcb6a}\label{check__arrive_8py_a6b59a9cbe30ec72674eb55c3f77fcb6a}} 
+{\bfseries check\+\_\+arrive.\+pose\+\_\+} = Pose()
+\item 
+\mbox{\Hypertarget{check__arrive_8py_a713d0fc2bf5bb68cde0ea5b5b59b582e}\label{check__arrive_8py_a713d0fc2bf5bb68cde0ea5b5b59b582e}} 
+{\bfseries check\+\_\+arrive.\+desired\+\_\+position\+\_\+} = Point()
+\item 
+\mbox{\Hypertarget{check__arrive_8py_ae637a89a9531166efb6161e79b7ffa42}\label{check__arrive_8py_ae637a89a9531166efb6161e79b7ffa42}} 
+{\bfseries check\+\_\+arrive.\+z}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+check\+\_\+arrive\+\_\+node 
+
+\begin{DoxyAuthor}{Author}
+Alberto Bono 3962994 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+04/01/2025
+\end{DoxyDate}
+Subscribes to\+: /odom
+
+Simple\+Action\+Client\+: /reaching\+\_\+goal
+
+Description\+: This node allows the robot to check if it has reached the target position. I have to made this node because the /move\+\_\+base dosn\textquotesingle{}t provide a feedback message when the robot reaches the target position. It subscribes to the /odom topic to get the current position of the robot. When the robot reaches the target position, it sends a feedback message to the action client /reaching\+\_\+goal and sets the result as succeeded. 

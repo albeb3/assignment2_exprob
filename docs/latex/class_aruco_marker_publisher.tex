@@ -1,0 +1,55 @@
+\hypertarget{class_aruco_marker_publisher}{}\doxysection{Aruco\+Marker\+Publisher Class Reference}
+\label{class_aruco_marker_publisher}\index{ArucoMarkerPublisher@{ArucoMarkerPublisher}}
+
+
+$<$ Include some necessary libraries  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_aruco_marker_publisher_a221a0a7ddc3ebd061a5fa9a84718a830}{odom\+Callback}} (const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback function for the /odom topic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aruco_marker_publisher_aa44e8391a543176e7b52c7ad382be7a2}{image\+\_\+callback}} (const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback function for the /robot4\+\_\+xacro/camera1/image\+\_\+raw topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+$<$ Include some necessary libraries 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aruco_marker_publisher_aa44e8391a543176e7b52c7ad382be7a2}\label{class_aruco_marker_publisher_aa44e8391a543176e7b52c7ad382be7a2}} 
+\index{ArucoMarkerPublisher@{ArucoMarkerPublisher}!image\_callback@{image\_callback}}
+\index{image\_callback@{image\_callback}!ArucoMarkerPublisher@{ArucoMarkerPublisher}}
+\doxysubsubsection{\texorpdfstring{image\_callback()}{image\_callback()}}
+{\footnotesize\ttfamily void Aruco\+Marker\+Publisher\+::image\+\_\+callback (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Callback function for the /robot4\+\_\+xacro/camera1/image\+\_\+raw topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg(const} & sensor\+\_\+msgs\+::\+Image\+Const\+Ptr)\\
+\hline
+\end{DoxyParams}
+This function reads the image from the camera and detects the markers in it. It then publishes the detected markers to the /robot4\+\_\+xacro/marker\+\_\+id\+\_\+detected topic. \mbox{\Hypertarget{class_aruco_marker_publisher_a221a0a7ddc3ebd061a5fa9a84718a830}\label{class_aruco_marker_publisher_a221a0a7ddc3ebd061a5fa9a84718a830}} 
+\index{ArucoMarkerPublisher@{ArucoMarkerPublisher}!odomCallback@{odomCallback}}
+\index{odomCallback@{odomCallback}!ArucoMarkerPublisher@{ArucoMarkerPublisher}}
+\doxysubsubsection{\texorpdfstring{odomCallback()}{odomCallback()}}
+{\footnotesize\ttfamily void Aruco\+Marker\+Publisher\+::odom\+Callback (\begin{DoxyParamCaption}\item[{const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Callback function for the /odom topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg(const} & nav\+\_\+msgs\+::\+Odometry)\\
+\hline
+\end{DoxyParams}
+This function reads the robot\textquotesingle{}s position from the odometry message and stores it in the robot\+\_\+x\+\_\+ and robot\+\_\+y\+\_\+ variables. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/\mbox{\hyperlink{marker__publish_8cpp}{marker\+\_\+publish.\+cpp}}\end{DoxyCompactItemize}

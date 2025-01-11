@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-
-     
-     
      <node pkg="assignment2_exprob" type="marker_detection_server" name="marker_detection_server" output="screen" />
-	 <node pkg="assignment2_exprob" type="laser_point_pub.py" name="laser_point_pub.py" output="screen" />
+	<node pkg="assignment2_exprob" type="laser_point_pub.py" name="laser_point_pub.py" output="screen" />
      <node pkg="assignment2_exprob" type="set_velocity_control_node" name="set_velocity_control_node" output="screen" />
+     <node pkg="assignment2_exprob" type="marker_publisher_assignment" name="marker_publisher_assignment" output="log"/>
+     <node pkg="assignment2_exprob" type="check_arrive.py" name="check_arrive_action_service" output="log" />
+     
+     
 
 
 </launch>

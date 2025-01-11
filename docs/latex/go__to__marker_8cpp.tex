@@ -1,0 +1,106 @@
+\hypertarget{go__to__marker_8cpp}{}\doxysection{/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/go\+\_\+to\+\_\+marker.cpp File Reference}
+\label{go__to__marker_8cpp}\index{/home/albeb/ros\_ws/src/assignment2\_exprob/src/go\_to\_marker.cpp@{/home/albeb/ros\_ws/src/assignment2\_exprob/src/go\_to\_marker.cpp}}
+
+
+my\+\_\+rosplan\+\_\+go\+\_\+to\+\_\+marker\+\_\+action Node  
+
+
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$actionlib/client/simple\+\_\+action\+\_\+client.\+h$>$}\newline
+{\ttfamily \#include $<$actionlib/client/terminal\+\_\+state.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Pose\+Stamped.\+h$>$}\newline
+{\ttfamily \#include $<$assignment2\+\_\+exprob/\+Marker\+\_\+id\+\_\+pos.\+h$>$}\newline
+{\ttfamily \#include $<$assignment2\+\_\+exprob/\+Marker\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$move\+\_\+base\+\_\+msgs/\+Move\+Base\+Action.\+h$>$}\newline
+{\ttfamily \#include $<$move\+\_\+base\+\_\+msgs/\+Move\+Base\+Action\+Goal.\+h$>$}\newline
+{\ttfamily \#include $<$move\+\_\+base\+\_\+msgs/\+Move\+Base\+Goal.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}assignment2\+\_\+exprob/planning\+\_\+action.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$assignment2\+\_\+exprob/\+Planning\+Action.\+h$>$}\newline
+{\ttfamily \#include $<$assignment2\+\_\+exprob/\+Planning\+Goal.\+h$>$}\newline
+Include dependency graph for go\+\_\+to\+\_\+marker.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{go__to__marker_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespace_k_c_l__rosplan}{K\+C\+L\+\_\+rosplan}}
+\begin{DoxyCompactList}\small\item\em Implementation of the action interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{go__to__marker_8cpp_abe834f4bdbd8bf64a8f1cdaef3671867}{marker\+Callback}} (const assignment2\+\_\+exprob\+::\+Marker\+Array\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback function for the /detected\+\_\+markers topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{go__to__marker_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+int \mbox{\hyperlink{go__to__marker_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_ae8d4342b537526d854609c265303223c}\label{go__to__marker_8cpp_ae8d4342b537526d854609c265303223c}} 
+const int \mbox{\hyperlink{go__to__marker_8cpp_ae8d4342b537526d854609c265303223c}{M\+A\+X\+\_\+\+M\+A\+R\+K\+E\+RS}} = 4
+\begin{DoxyCompactList}\small\item\em Maximum number of markers that can be detected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_a8d918b9a80d691cab837b98c6fba9daa}\label{go__to__marker_8cpp_a8d918b9a80d691cab837b98c6fba9daa}} 
+int \mbox{\hyperlink{go__to__marker_8cpp_a8d918b9a80d691cab837b98c6fba9daa}{marker\+\_\+ids}} \mbox{[}\mbox{\hyperlink{go__to__marker_8cpp_ae8d4342b537526d854609c265303223c}{M\+A\+X\+\_\+\+M\+A\+R\+K\+E\+RS}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of marker I\+Ds detected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_ad543d8b948d7aa7f089bd7e6f2c98906}\label{go__to__marker_8cpp_ad543d8b948d7aa7f089bd7e6f2c98906}} 
+float \mbox{\hyperlink{go__to__marker_8cpp_ad543d8b948d7aa7f089bd7e6f2c98906}{marker\+\_\+positions\+\_\+x}} \mbox{[}\mbox{\hyperlink{go__to__marker_8cpp_ae8d4342b537526d854609c265303223c}{M\+A\+X\+\_\+\+M\+A\+R\+K\+E\+RS}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of marker x positions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_a45257b1f8037966d600da88d7b941254}\label{go__to__marker_8cpp_a45257b1f8037966d600da88d7b941254}} 
+float \mbox{\hyperlink{go__to__marker_8cpp_a45257b1f8037966d600da88d7b941254}{marker\+\_\+positions\+\_\+y}} \mbox{[}\mbox{\hyperlink{go__to__marker_8cpp_ae8d4342b537526d854609c265303223c}{M\+A\+X\+\_\+\+M\+A\+R\+K\+E\+RS}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of marker y positions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_a8acaa04f32ab47b14a381df1fff54f92}\label{go__to__marker_8cpp_a8acaa04f32ab47b14a381df1fff54f92}} 
+int \mbox{\hyperlink{go__to__marker_8cpp_a8acaa04f32ab47b14a381df1fff54f92}{marker\+\_\+count}} = 0
+\begin{DoxyCompactList}\small\item\em Counter for the number of markers detected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{go__to__marker_8cpp_a3a85b4019f635a07f4bc661dcb878c40}\label{go__to__marker_8cpp_a3a85b4019f635a07f4bc661dcb878c40}} 
+int \mbox{\hyperlink{go__to__marker_8cpp_a3a85b4019f635a07f4bc661dcb878c40}{selected\+\_\+marker\+\_\+id}} = -\/1
+\begin{DoxyCompactList}\small\item\em Initialising the selected marker ID to -\/1 in case no marker is detected. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+my\+\_\+rosplan\+\_\+go\+\_\+to\+\_\+marker\+\_\+action Node 
+
+\begin{DoxyAuthor}{Author}
+Alberto Bono 3962994 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+04/01/2025
+\end{DoxyDate}
+Subscribes to\+:~\newline
+ /detected\+\_\+markers~\newline
+
+
+Simple\+Action\+Client\+:~\newline
+ /reaching\+\_\+goal~\newline
+ /move\+\_\+base~\newline
+
+
+Description\+:~\newline
+ This node receives the goal from the planner via the marker message then associates the goal with the relative detected marker\textquotesingle{}s position and sends it to both the move\+\_\+base action server and the reaching\+\_\+goal action server. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{go__to__marker_8cpp_abe834f4bdbd8bf64a8f1cdaef3671867}\label{go__to__marker_8cpp_abe834f4bdbd8bf64a8f1cdaef3671867}} 
+\index{go\_to\_marker.cpp@{go\_to\_marker.cpp}!markerCallback@{markerCallback}}
+\index{markerCallback@{markerCallback}!go\_to\_marker.cpp@{go\_to\_marker.cpp}}
+\doxysubsubsection{\texorpdfstring{markerCallback()}{markerCallback()}}
+{\footnotesize\ttfamily void marker\+Callback (\begin{DoxyParamCaption}\item[{const assignment2\+\_\+exprob\+::\+Marker\+Array\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+Callback function for the /detected\+\_\+markers topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg(const} & assignment2\+\_\+exprob\+::\+Marker\+Array) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+fills the marker\+\_\+ids, marker\+\_\+positions\+\_\+x, marker\+\_\+positions\+\_\+y arrays with the detected markers\textquotesingle{} I\+Ds and positions 
+\end{DoxyReturn}

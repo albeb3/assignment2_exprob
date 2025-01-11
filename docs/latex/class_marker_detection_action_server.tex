@@ -1,0 +1,53 @@
+\hypertarget{class_marker_detection_action_server}{}\doxysection{Marker\+Detection\+Action\+Server Class Reference}
+\label{class_marker_detection_action_server}\index{MarkerDetectionActionServer@{MarkerDetectionActionServer}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_marker_detection_action_server_a341044b4d0fcae2b548064e9bf8092dd}\label{class_marker_detection_action_server_a341044b4d0fcae2b548064e9bf8092dd}} 
+{\bfseries Marker\+Detection\+Action\+Server} (ros\+::\+Node\+Handle nh)
+\item 
+void \mbox{\hyperlink{class_marker_detection_action_server_a4cdbd74a70c67b47a4647626742d94d7}{execute\+Callback}} (const assignment2\+\_\+exprob\+::\+Marker\+Detection\+Goal\+Const\+Ptr \&goal)
+\begin{DoxyCompactList}\small\item\em Callback function for the /find\+\_\+marker action server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_marker_detection_action_server_a7af11b70cb6bd2190b4582664865317e}{found\+Callback}} (const assignment2\+\_\+exprob\+::\+Marker\+\_\+id\+\_\+pos msg)
+\begin{DoxyCompactList}\small\item\em Callback function for the /robot4\+\_\+xacro/marker\+\_\+id\+\_\+detected topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_marker_detection_action_server_a4cdbd74a70c67b47a4647626742d94d7}\label{class_marker_detection_action_server_a4cdbd74a70c67b47a4647626742d94d7}} 
+\index{MarkerDetectionActionServer@{MarkerDetectionActionServer}!executeCallback@{executeCallback}}
+\index{executeCallback@{executeCallback}!MarkerDetectionActionServer@{MarkerDetectionActionServer}}
+\doxysubsubsection{\texorpdfstring{executeCallback()}{executeCallback()}}
+{\footnotesize\ttfamily void Marker\+Detection\+Action\+Server\+::execute\+Callback (\begin{DoxyParamCaption}\item[{const assignment2\+\_\+exprob\+::\+Marker\+Detection\+Goal\+Const\+Ptr \&}]{goal }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Callback function for the /find\+\_\+marker action server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goal(const} & assignment2\+\_\+exprob\+::\+Marker\+Detection\+Goal\+Const\+Ptr) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_marker_detection_action_server_a7af11b70cb6bd2190b4582664865317e}\label{class_marker_detection_action_server_a7af11b70cb6bd2190b4582664865317e}} 
+\index{MarkerDetectionActionServer@{MarkerDetectionActionServer}!foundCallback@{foundCallback}}
+\index{foundCallback@{foundCallback}!MarkerDetectionActionServer@{MarkerDetectionActionServer}}
+\doxysubsubsection{\texorpdfstring{foundCallback()}{foundCallback()}}
+{\footnotesize\ttfamily void Marker\+Detection\+Action\+Server\+::found\+Callback (\begin{DoxyParamCaption}\item[{const assignment2\+\_\+exprob\+::\+Marker\+\_\+id\+\_\+pos}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Callback function for the /robot4\+\_\+xacro/marker\+\_\+id\+\_\+detected topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg(const} & assignment2\+\_\+exprob\+::\+Marker\+\_\+id\+\_\+pos)\\
+\hline
+\end{DoxyParams}
+This function receives the detected marker\+\_\+id and position from the robot4\+\_\+xacro/marker\+\_\+id\+\_\+detected topic and fills the detected\+\_\+markers list with the detected markers and their positions. When the list has 4 markers, it publishes the list to the detected\+\_\+markers topic. If the marker\+\_\+id is already present in the list, it is ignored. \begin{DoxyReturn}{Returns}
+fills the detected\+\_\+markers list with the detected markers and their positions 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/\mbox{\hyperlink{marker__detection__server_8cpp}{marker\+\_\+detection\+\_\+server.\+cpp}}\end{DoxyCompactItemize}

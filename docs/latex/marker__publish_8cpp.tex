@@ -1,0 +1,64 @@
+\hypertarget{marker__publish_8cpp}{}\doxysection{/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/marker\+\_\+publish.cpp File Reference}
+\label{marker__publish_8cpp}\index{/home/albeb/ros\_ws/src/assignment2\_exprob/src/marker\_publish.cpp@{/home/albeb/ros\_ws/src/assignment2\_exprob/src/marker\_publish.cpp}}
+
+
+Modified copy of simple\+\_\+single.\+cpp to publish all markers visible (modified by Josh Langsfeld, 2014)  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$aruco/aruco.\+h$>$}\newline
+{\ttfamily \#include $<$aruco/cvdrawingutils.\+h$>$}\newline
+{\ttfamily \#include $<$ros/ros.\+h$>$}\newline
+{\ttfamily \#include $<$image\+\_\+transport/image\+\_\+transport.\+h$>$}\newline
+{\ttfamily \#include $<$cv\+\_\+bridge/cv\+\_\+bridge.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/image\+\_\+encodings.\+h$>$}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/\+Int32.\+h$>$}\newline
+{\ttfamily \#include $<$assignment2\+\_\+exprob/\+Marker\+\_\+id\+\_\+pos.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Odometry.\+h$>$}\newline
+{\ttfamily \#include $<$tf/tf.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Pose.\+h$>$}\newline
+Include dependency graph for marker\+\_\+publish.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{marker__publish_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_aruco_marker_publisher}{Aruco\+Marker\+Publisher}}
+\begin{DoxyCompactList}\small\item\em $<$ Include some necessary libraries \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{marker__publish_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{marker__publish_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+int \mbox{\hyperlink{marker__publish_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Modified copy of simple\+\_\+single.\+cpp to publish all markers visible (modified by Josh Langsfeld, 2014) 
+
+Modified copy of \mbox{\hyperlink{marker__publish_8cpp}{marker\+\_\+publish.\+cpp}} to publish the detected markers.
+
+\begin{DoxyAuthor}{Author}
+Bence Magyar 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 2014
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Alberto Bono 3962994 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+04/01/2025
+\end{DoxyDate}
+Publishes to\+:~\newline
+ /robot4\+\_\+xacro/marker\+\_\+id\+\_\+detected~\newline
+
+
+Description\+:~\newline
+ This node is a modified copy of \mbox{\hyperlink{marker__publish_8cpp}{marker\+\_\+publish.\+cpp}} to publish the detected markers. The modification consists of publishing the detected markers to the /robot4\+\_\+xacro/marker\+\_\+id\+\_\+detected topic. The robot\textquotesingle{}s position is also published along with the marker\+\_\+id. 

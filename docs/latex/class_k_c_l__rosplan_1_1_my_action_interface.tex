@@ -1,0 +1,67 @@
+\hypertarget{class_k_c_l__rosplan_1_1_my_action_interface}{}\doxysection{K\+C\+L\+\_\+rosplan\+::My\+Action\+Interface Class Reference}
+\label{class_k_c_l__rosplan_1_1_my_action_interface}\index{KCL\_rosplan::MyActionInterface@{KCL\_rosplan::MyActionInterface}}
+
+
+Inheritance diagram for K\+C\+L\+\_\+rosplan\+::My\+Action\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{class_k_c_l__rosplan_1_1_my_action_interface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for K\+C\+L\+\_\+rosplan\+::My\+Action\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{class_k_c_l__rosplan_1_1_my_action_interface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_k_c_l__rosplan_1_1_my_action_interface_a51ce261a38c4c6384ed47783aa75e0c0}\label{class_k_c_l__rosplan_1_1_my_action_interface_a51ce261a38c4c6384ed47783aa75e0c0}} 
+{\bfseries My\+Action\+Interface} (ros\+::\+Node\+Handle \&nh)
+\item 
+bool \mbox{\hyperlink{class_k_c_l__rosplan_1_1_my_action_interface_ada178916d8b7a9ffd6ed714f372ee327}{concrete\+Callback}} (const rosplan\+\_\+dispatch\+\_\+msgs\+::\+Action\+Dispatch\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Callback function for the /rosplan\+\_\+plan\+\_\+dispatcher/action\+\_\+dispatch topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_k_c_l__rosplan_1_1_my_action_interface_ada178916d8b7a9ffd6ed714f372ee327}\label{class_k_c_l__rosplan_1_1_my_action_interface_ada178916d8b7a9ffd6ed714f372ee327}} 
+\index{KCL\_rosplan::MyActionInterface@{KCL\_rosplan::MyActionInterface}!concreteCallback@{concreteCallback}}
+\index{concreteCallback@{concreteCallback}!KCL\_rosplan::MyActionInterface@{KCL\_rosplan::MyActionInterface}}
+\doxysubsubsection{\texorpdfstring{concreteCallback()}{concreteCallback()}}
+{\footnotesize\ttfamily bool K\+C\+L\+\_\+rosplan\+::\+My\+Action\+Interface\+::concrete\+Callback (\begin{DoxyParamCaption}\item[{const rosplan\+\_\+dispatch\+\_\+msgs\+::\+Action\+Dispatch\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+Callback function for the /rosplan\+\_\+plan\+\_\+dispatcher/action\+\_\+dispatch topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg(const} & rosplan\+\_\+dispatch\+\_\+msgs\+::\+Action\+Dispatch) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sends the robot to the selected marker\textquotesingle{}s position
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em msg(const} & rosplan\+\_\+dispatch\+\_\+msgs\+::\+Action\+Dispatch) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sends the robot to the selected waypoint\textquotesingle{}s position 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/include/assignment2\+\_\+exprob/planning\+\_\+action.\+h\item 
+/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/\mbox{\hyperlink{go__to__marker_8cpp}{go\+\_\+to\+\_\+marker.\+cpp}}\item 
+/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/\mbox{\hyperlink{go__to__wp_8cpp}{go\+\_\+to\+\_\+wp.\+cpp}}\item 
+/home/albeb/ros\+\_\+ws/src/assignment2\+\_\+exprob/src/\mbox{\hyperlink{marker__detection__client_8cpp}{marker\+\_\+detection\+\_\+client.\+cpp}}\end{DoxyCompactItemize}

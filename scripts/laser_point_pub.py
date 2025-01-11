@@ -1,16 +1,31 @@
 #! /usr/bin/env python
 
+## @package assignment2_exprob
+#
+# \file laser_point_pub.py
+# \brief laser_point_pub
+# \author Alberto Bono 3962994
+# \date 04/01/2025
+#
+# Subscribes to:
+#    /scan
+#
+# Subscribes to:
+#    /laser_direction
+#
+# Description:
+# This node allows the robot to find the closest point to the robot in the laser scan data.
+# It subscribes to the /scan topic to get the laser scan data.
+# When the robot finds the closest point, it publishes a message with the direction and the distance of the closest point.
+
+
+# Import the necessary libraries
 import rospy
 from sensor_msgs.msg import LaserScan
-from geometry_msgs.msg import Twist
-from nav_msgs.msg import Odometry
-from tf import transformations
 from std_srvs.srv import *
 from assignment2_exprob.msg import laser_direction
-import math
 
-active_ = False
-
+# Global variables for managing the regions of the laser scan data
 pub_ = None
 regions_ = {
     'right': 0,
@@ -20,9 +35,7 @@ regions_ = {
     'left': 0,
 }
 
-
-
-
+# Callback for the /scan topic: find the closest point to the robot in the laser scan data
 def clbk_laser(msg):
     global regions_
     regions_ = {
@@ -32,31 +45,25 @@ def clbk_laser(msg):
         'fleft':  min(min(msg.ranges[432:575]), 10),
         'left':   min(min(msg.ranges[576:713]), 10),
     }
+    
+   
+    # Store the key of the minimum value of the regions in the variable min_key
     min_key = min(regions_, key=regions_.get)
-    print("il punto più vicino sta : ", min_key)
+    # Store the minimum value of the regions in the variable min_value
     min_value = regions_[min_key]
-    print("la distanza è: ", min_value)
-
-    # Crea e pubblica il messaggio personalizzato
+    # Publish the direction and the distance of the closest point to the robot
     msg = laser_direction()
     msg.direction = min_key
     msg.distance = min_value
     pub_.publish(msg)
     
-
-   
-
-
+# Main function
 def main():
-    global pub_, active_
-
-    rospy.init_node('reading_laser')
-
+    global pub_
+    rospy.init_node('laser_point_pub')
     sub = rospy.Subscriber('/scan', LaserScan, clbk_laser)
     pub_ = rospy.Publisher('/laser_direction', laser_direction, queue_size=10)
     rospy.spin()
-
-
 
 if __name__ == '__main__':
     main()

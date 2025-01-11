@@ -1,16 +1,9 @@
 <?xml version="1.0"?>
 <launch>
     
-    <node pkg="assignment2_exprob" type="marker_publisher_assignment" name="marker_publisher_assignment" output="log">
-            <!-- Remapping del topic /image -->
-            <remap from="/image" to="/robot4_xacro/camera1/image_raw" />
-    </node>
-
-    
     <include file="$(find assignment2_exprob)/launch/plan.launch" />
-    
-	 
-     <node pkg="assignment2_exprob" type="check_arrive.py" name="check_arrive_action_service" output="log" />
+    <node pkg="assignment2_exprob" type="plan_services.py" name="plan_services" />
+
 
 
 </launch>

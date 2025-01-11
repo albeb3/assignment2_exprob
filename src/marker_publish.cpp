@@ -32,11 +32,26 @@
  * @brief Modified copy of simple_single.cpp to publish all markers visible
  * (modified by Josh Langsfeld, 2014)
  */
+/**
+ * \file marker_publish.cpp
+ * \author Alberto Bono 3962994
+ * \date 04/01/2025
+ * \brief Modified copy of marker_publish.cpp to publish the detected markers
+ * 
+ * \details
+ * Publishes to:<BR>
+ *   /robot4_xacro/marker_id_detected<BR>
+ * 
+ * Description:<BR>
+ * This node is a modified copy of marker_publish.cpp to publish the detected markers.
+ * The modification consists of publishing the detected markers to the /robot4_xacro/marker_id_detected topic.
+ * The robot's position is also published along with the marker_id.
+ */
 
+///< Include some necessary libraries
 #include <iostream>
 #include <aruco/aruco.h>
 #include <aruco/cvdrawingutils.h>
-
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
@@ -50,65 +65,66 @@
 class ArucoMarkerPublisher
 {
 private:
-  // ArUco stuff
-  aruco::MarkerDetector mDetector_;
-  std::vector<aruco::Marker> markers_;
-  aruco::CameraParameters camParam_;
+  // Aruco stuff
+  aruco::MarkerDetector mDetector_; ///< Marker detector
+  std::vector<aruco::Marker> markers_; ///< Vector of detected markers
+  aruco::CameraParameters camParam_; ///< Camera parameters
 
   // node params
-  double marker_size_;
-  bool useCamInfo_;
+  double marker_size_; ///< Marker size
+  bool useCamInfo_; ///< Use camera info
 
-  //modifiche
-
+  // Initialising the robot's position
+  double robot_x_;  ///< Robot's x position
+  double robot_y_;  ///< Robot's y position
   
-  double robot_x_;
-    double robot_y_;
-    //double robot_theta_;  
   // ROS pub-sub
-  ros::NodeHandle nh_;
-  image_transport::ImageTransport it_;
-  image_transport::Subscriber image_sub_;
-  ros::Subscriber search_sub;
-  
-  //modifiche
-  ros::Publisher marker_pub_= nh_.advertise<assignment2_exprob::Marker_id_pos>("/robot4_xacro/marker_id_detected", 10);
-  ros::Subscriber sub;
- 
-  image_transport::Publisher image_pub_;
-  image_transport::Publisher debug_pub_;
+  ros::NodeHandle nh_; ///< Node handle
+  image_transport::ImageTransport it_; ///< Image transport
+  image_transport::Subscriber image_sub_; ///< Subscriber for the image topic
+  ros::Subscriber search_sub; ///< Subscriber for the search topic
 
-  cv::Mat inImage_;
+  ros::Publisher marker_pub_= nh_.advertise<assignment2_exprob::Marker_id_pos>("/robot4_xacro/marker_id_detected", 10);   ///< Publisher for the marker_id_detected topic
+  ros::Subscriber sub; ///< Subscriber for the odom topic
+  image_transport::Publisher image_pub_;  ///< Publisher for the image topic
+  image_transport::Publisher debug_pub_; ///< Publisher for the debug topic
+  cv::Mat inImage_; ///< Image variable
   
 public:
+  // Constructor
   ArucoMarkerPublisher() :
       nh_("~"), it_(nh_), useCamInfo_(true)
   {
-    image_sub_ = it_.subscribe("/image", 1, &ArucoMarkerPublisher::image_callback, this);
-    
-   
+    // Subscribe to the camera image topic
+    image_sub_ = it_.subscribe("/robot4_xacro/camera1/image_raw", 1, &ArucoMarkerPublisher::image_callback, this);
+    // Subscribe to the odom topic
     sub = nh_.subscribe("/odom", 10, &ArucoMarkerPublisher::odomCallback, this);
-    
+    // Publisher for the image topic
     image_pub_ = it_.advertise("result", 1);
     debug_pub_ = it_.advertise("debug", 1);
-    
     nh_.param<bool>("use_camera_info", useCamInfo_, false);
     camParam_ = aruco::CameraParameters();
   }
-
-
+  /**
+   * \brief Callback function for the /odom topic
+   * \param msg(const nav_msgs::Odometry)
+   * \details
+   * This function reads the robot's position from the odometry message
+   * and stores it in the robot_x_ and robot_y_ variables.
+   * 
+   */
   void odomCallback(const nav_msgs::Odometry::ConstPtr& msg) {
-    // Legge la posizione dal messaggio di odometria
+    // Read the robot's position from the odometry message and store it in the robot_x_ and robot_y_ variables
     robot_x_ = msg->pose.pose.position.x;
     robot_y_ = msg->pose.pose.position.y;
-   
-
-     // Converti il quaternion in un angolo di Eulero per l'orientamento
-        //tf::Quaternion quat(msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
-          //                   msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
-        //tf::Matrix3x3(quat).getRPY(robot_theta_, 0.0, 0.0);  // Angolo di rotazione sull'asse Z
-
     }
+  /**
+  * \brief Callback function for the /robot4_xacro/camera1/image_raw topic
+  * \param msg(const sensor_msgs::ImageConstPtr)
+  * \details
+  * This function reads the image from the camera and detects the markers in it.
+  * It then publishes the detected markers to the /robot4_xacro/marker_id_detected topic.
+  */
   void image_callback(const sensor_msgs::ImageConstPtr& msg)
   {
     bool publishImage = image_pub_.getNumSubscribers() > 0;
@@ -128,16 +144,16 @@ public:
       // ok, let's detect
       mDetector_.detect(inImage_, markers_, camParam_, marker_size_, false);
 
-      //modifiche
+      // Define the Marker_id_pos message
       assignment2_exprob::Marker_id_pos marker_id_pos;
 
-        if (markers_.empty()) {
+      if (markers_.empty()) {
           // If no marker is detected, set marker_id to -1 and publish the position
           marker_id_pos.marker_id = -1;  // No marker detected
           marker_id_pos.pose.position.x = robot_x_;
           marker_id_pos.pose.position.y = robot_y_;
           marker_pub_.publish(marker_id_pos);
-        } else {
+      } else {
           // If markers are detected, publish each one with the robot's position
           for (std::size_t i = 0; i < markers_.size(); ++i)
           {
@@ -146,8 +162,8 @@ public:
             marker_id_pos.pose.position.y = robot_y_;
             marker_pub_.publish(marker_id_pos);
           }
-        }
-        std::cout << std::endl;
+      }
+      std::cout << std::endl;
 
       // draw detected markers on the image for visualization
       for (std::size_t i = 0; i < markers_.size(); ++i)
@@ -183,7 +199,9 @@ public:
     }
   }
 };
-
+/**
+ * \brief Main function
+ */
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "aruco_marker_publisher");
