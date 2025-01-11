@@ -121,7 +121,7 @@ roslaunch assignment2_exprob sim_aruco2.launch
 - Parse the plan.
 - Dispatch the plan in order to reach the goal of the task.
 
-[Plan](plan.png)
+![plan](https://github.com/user-attachments/assets/544ebc0d-79ab-4e0c-a363-b351e3f7f26b)
 
 
 The **`goto_waypoint`** action result from the plan is an action client that takes the waypoint as an argument. Based on fixed coordinates, it sends these coordinates as a goal to the **`move_base`** action server, which moves the robot autonomously to the waypoint. However, since I encountered difficulties receiving the success response from **`move_base`**, I sent the same goal to another action server, which provided feedback indicating whether the goal was reached successfully.
