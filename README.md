@@ -12,7 +12,10 @@ The robot has to reach these waypoints:
 For each waypoint, the robot will attempt to find the marker positioned near it. After visiting each waypoint, the robot will visit all the waypoints starting from the one with the lowest marker ID and proceed in order until it reaches the waypoint with the highest ID.
 ---
 ## **Simulation Demo**
-https://github.com/albeb3/assignment2_exprob/blob/main/simulation.mp4#L1)
+
+https://github.com/user-attachments/assets/220eb130-7185-4fdf-a51e-9b8405b95e9f
+
+
 ---
 
 ## **Requirements**
